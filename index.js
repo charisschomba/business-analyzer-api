@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import routes from './routes';
 import dbConnection from './utils/db';
@@ -14,6 +15,7 @@ export const app = express();
 // app middlewares
 app.use(morgan('tiny'));
 app.use(express.json());
+app.use(cors());
 const port = process.env.PORT || 8000;
 // set up routes
 routes(app)

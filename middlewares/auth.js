@@ -9,8 +9,8 @@ import userSchema, {loginSchema} from '../utils/validations/auth';
 dotenv.config();
 
 export const crateUser = async(req, res, next) => {
-    const {username, email, password} = req.body;
-    const { error, value } = userSchema.validate({ username, email, password });
+    const {username, email, password, fullname} = req.body;
+    const { error, value } = userSchema.validate({ username, email, password, fullname });
     if (error) {
         const resErrors = errorParser(error);
         return res.status(401).json({errors: resErrors});
@@ -18,12 +18,18 @@ export const crateUser = async(req, res, next) => {
     const userExists = await User.findOne({email});
     if(userExists){
        return res.status(409).json({
-            msg: 'user with provided email exists'
+            errors: {
+                message: 'user with provided email exists',
+                context: {
+                    key: 'email'
+                }
+            }
         })
     }
     bcrypt.hash(password, 12, async(err, hash) => {
-        const user = new User({username, email, password: hash})
-        await user.save(); 
+        const user = new User({username, email, fullname, password: hash})
+        await user.save();
+        return res.status(201).json({message: 'user created successfully'})
     })
 };
 export const loginUser = async (req, res, next) => {
@@ -53,7 +59,9 @@ export const loginUser = async (req, res, next) => {
         })
     }
     return res.status(401).json({
-            msg: 'check your password and email'
+            errors: {
+                message: 'check your password and email'
+            }
         }) 
     
 
