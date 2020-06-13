@@ -1,28 +1,28 @@
 import mongoose, {Schema} from 'mongoose';
 
-const billSchema = new Schema({
+const orderSchema = new Schema({
   id: {
     type: String,
     required: true
   },
-  transaction: {
+  transactionType: {
     type: String,
-    required: true,
+    required: true
   },
   status: {
     type: String,
     required: true
   },
   transactionDate: {
-    type: String,
+    type: Date,
     required: true
   },
   dueDate: {
-    type: String,
+    type: Date,
     required: true
   },
   customer: {
-    type: [String],
+    type: String,
     required: true
   },
   item: {
@@ -30,19 +30,15 @@ const billSchema = new Schema({
     required: true
   },
   quantity: {
-    type: String,
+    type: Number,
     required: true
   },
-  unitAmount: {
-    type: String,
-    required: true
-  },
-  totalTransaction: {
-    type: String,
+  transactionAmount: {
+    type: Number,
     required: true
   },
   amount: {
-    type: String,
+    type: Number,
     required: true
   },
   user: {
@@ -58,4 +54,4 @@ const billSchema = new Schema({
 
 })
 
-export default mongoose.model('Bill', billSchema);
+export default mongoose.model('Order', orderSchema);

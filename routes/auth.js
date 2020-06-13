@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import userSchema, {loginSchema} from "../utils/validations/auth";
 import errorParser from "../utils/handleValidationErrors";
-import User from "../models/user";
+import User from "../models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

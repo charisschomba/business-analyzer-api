@@ -1,7 +1,7 @@
 import businessSchema from "../utils/validations/business";
 import errorParser from "../utils/handleValidationErrors";
 import requireLogin from "../middlewares/requireLoggin";
-import Business from "../models/business";
+import Business from "../models/Business";
 import {Router} from "express";
 
 const router = Router();
