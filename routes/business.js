@@ -5,7 +5,7 @@ import Business from "../models/Business";
 import {Router} from "express";
 
 const router = Router();
-
+// handles creation of new business
 router.post('/business', requireLogin, async(req, res) => {
   const {country, name, entity, countriesOfOperations, address} = req.body;
   const { error, value } = businessSchema.validate({ country, name, entity, countriesOfOperations, address });

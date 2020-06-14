@@ -1,5 +1,6 @@
 import Joi from 'joi';
 
+// user validation schema
 const userSchema = Joi.object({
     email: Joi.string()
       .email()
@@ -13,7 +14,6 @@ const userSchema = Joi.object({
     .max(15)
     .required(),
     password: Joi.string()
-    // .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$')
     .min(6)
     .required()
 });

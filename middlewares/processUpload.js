@@ -1,7 +1,9 @@
 import parseCsv from "../utils/parseCsv";
 import { getBusiness} from '../controllers'
 
+// Parses uploaded csv file
 const processUpload = async (req, res, next) => {
+  // Get file type
   const fileType = req.files.csv.name.split('.')[1]
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.
@@ -17,6 +19,7 @@ const processUpload = async (req, res, next) => {
     let businessCsv = req.files.csv;
     let uploadPath = '/tmp/' + businessCsv.name;
     const business = await getBusiness({user: req.user._id});
+    // move file to tmp folder
     businessCsv.mv(uploadPath, function(err) {
       if (err) {
         return res.

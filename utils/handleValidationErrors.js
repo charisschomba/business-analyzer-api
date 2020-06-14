@@ -1,3 +1,4 @@
+// creates customized error messages
 const validatorErrorHandler = (error) => {
     const [errorDetail] = error.details;
 

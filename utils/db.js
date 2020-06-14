@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+// creates db connection
 export default () => {
     mongoose.connect(process.env.MONGO_URI);
     mongoose.connection.on('connected', () => console.log('db connection was successfully'));

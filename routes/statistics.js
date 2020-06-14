@@ -8,19 +8,20 @@ import BillPayment from "../models/BillPayment";
 import Bill from "../models/Bill";
 
 const router = Router();
-
+// processes top items produced in terms of value
 router.get('/value', requireLogin,  async (req, res) => {
   const { days } = req.query;
   const data =  await getItemsValue({user: req.user._id, days});
   return res.status(200).json({ data, days });
 })
-
+// processes top items produced in terms of quantity
 router.get('/quantity', requireLogin, async (req, res) => {
   const { days } = req.query;
   const  data = await getItemsQuantity({user: req.user._id, days});
   return res.status(200).json({ data });
 })
 
+// processes  total incoming amount requests
 router.get('/incoming-amount', requireLogin, async (req, res) => {
   const { days } = req.query;
   const  [totalOrder] = await getTotalAmount({user: req.user._id, model: Order, days});
@@ -29,7 +30,7 @@ router.get('/incoming-amount', requireLogin, async (req, res) => {
     (totalOrderPayments ? totalOrderPayments.totalTransactionAmount: 0);
   return res.status(200).json({business: totalOrder._id, totalIncomingAmount});
 })
-
+// processes  total outgoing amount requests
 router.get('/outgoing-amount', requireLogin, async (req, res) => {
   const { days } = req.query;
   const  [totalBill] = await getTotalAmount({user: req.user._id, model: Bill, days});

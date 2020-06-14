@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
-
+// Checks if the user is logged in
 const requireLogin = async (req, res, next) => {
     const {authorization} = req.headers;
     if(!authorization) {

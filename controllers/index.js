@@ -3,9 +3,17 @@ import moment from "moment";
 import Business from "../models/Business";
 import Order from "../models/Order";
 
+// gets a single business using logged in user
 export const getBusiness = async ({user}) => {
-  return Business.findOne({user})
+  return Business.findOne({user});
 }
+
+/**
+ * Gets top items produced, in terms of value produced,
+ *
+ * @param user
+ * @param days
+ */
 
 export  const getItemsValue = async ({user, days = 30}) => {
   const business = await getBusiness({user});
@@ -19,8 +27,14 @@ export  const getItemsValue = async ({user, days = 30}) => {
       },
       {$group: {_id: '$item', value: {$sum: {$multiply: ['$quantity', '$amount']}}}},
       {$sort: {value: -1}}
-    ]).exec()
+    ]).exec();
 }
+/**
+ * Gets top items produced, in terms of quantity produced,
+ *
+ * @param user
+ * @param days
+ */
 export const getItemsQuantity = async ({user, days = 30}) => {
   const business = await getBusiness({user});
   const startDate = moment().subtract(days, 'days');
@@ -33,6 +47,12 @@ export const getItemsQuantity = async ({user, days = 30}) => {
     { $sort: { value: -1 } }
   ]).exec();
 }
+/**
+ * Gets total amount transactions
+ *
+ * @param user
+ * @param days
+ */
 export const getTotalAmount = async ({user, model, days = 30}) => {
   const business = await getBusiness({user});
   const startDate = moment().subtract(days, 'days');

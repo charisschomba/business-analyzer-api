@@ -1,10 +1,10 @@
 import Order from "../models/Order";
 import Bill from "../models/Bill";
-import billPayment from "../models/BillPayment";
-import orderPayment from "../models/OrderPayment";
+import BillPayment from "../models/BillPayment";
+import OrderPayment from "../models/OrderPayment";
 
-const bulkInsert = (type, mongoDocument) => {
-  // console.log(type)
+// inserts to a specific table  depending on transaction type
+const insertToTable = (type, mongoDocument) => {
   switch (type) {
     case "Order":
       new Order(mongoDocument).save();
@@ -13,20 +13,21 @@ const bulkInsert = (type, mongoDocument) => {
       new Bill(mongoDocument).save();
       break;
     case "Bill Payment":
-      new billPayment(mongoDocument).save();
+      new BillPayment(mongoDocument).save();
       break;
     case "Order Payment":
-      new orderPayment(mongoDocument).save();
+      new OrderPayment(mongoDocument).save();
       break;
     default:
       return
   }
 }
 
+// bulk inserts data in the database
 const insertDocuments = (documents) => {
   // console.log(documents, 'fuck')
   documents.forEach(document => {
-    bulkInsert(document.transactionType,document)
+    insertToTable(document.transactionType,document)
   })
 }
 

@@ -1,4 +1,5 @@
 import moment from 'moment';
+// handles creation of db collections
 const createDocument = (row, business, user) => {
   const [transactionType, id, status, transactionDate, dueDate, customer, item, quantity, amount, transactionAmount ] = row;
   return ({

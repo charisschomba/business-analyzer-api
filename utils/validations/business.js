@@ -1,5 +1,5 @@
 import Joi from 'joi';
-
+// business validation schema
 const businessSchema = Joi.object({
   name: Joi.string()
     .min(6)
