@@ -1,7 +1,7 @@
-import fs from "fs";
-import parse from "csv-parse";
-import createDocument from "./createDocument";
-import insertDocuments from "./bulkInsert";
+const fs =  require("fs");
+const parse =  require("csv-parse");
+const createDocument =  require("./createDocument");
+const insertDocuments =   require("./bulkInsert");
 
 // Reads csv file and parses it
 const parseCsv = (path, user, business) => {
@@ -20,4 +20,4 @@ const parseCsv = (path, user, business) => {
       insertDocuments(documents)
     });
 };
-export default parseCsv;
+module.exports = parseCsv;

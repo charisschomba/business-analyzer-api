@@ -1,10 +1,10 @@
-import moment from "moment";
+const moment = require("moment");
 
-import Business from "../models/Business";
-import Order from "../models/Order";
+const Business = require("../models/Business");
+const Order = require("../models/Order");
 
 // gets a single business using logged in user
-export const getBusiness = async ({user}) => {
+const getBusiness = async ({user}) => {
   return Business.findOne({user});
 }
 
@@ -15,7 +15,7 @@ export const getBusiness = async ({user}) => {
  * @param days
  */
 
-export  const getItemsValue = async ({user, days = 30}) => {
+const getItemsValue = async ({user, days = 30}) => {
   const business = await getBusiness({user});
   const startDate = moment().subtract(days, 'days');
   return Order.aggregate([
@@ -35,7 +35,7 @@ export  const getItemsValue = async ({user, days = 30}) => {
  * @param user
  * @param days
  */
-export const getItemsQuantity = async ({user, days = 30}) => {
+const getItemsQuantity = async ({user, days = 30}) => {
   const business = await getBusiness({user});
   const startDate = moment().subtract(days, 'days');
   return Order.aggregate([
@@ -53,7 +53,7 @@ export const getItemsQuantity = async ({user, days = 30}) => {
  * @param user
  * @param days
  */
-export const getTotalAmount = async ({user, model, days = 30}) => {
+const getTotalAmount = async ({user, model, days = 30}) => {
   const business = await getBusiness({user});
   const startDate = moment().subtract(days, 'days');
   return  model.aggregate([
@@ -67,4 +67,10 @@ export const getTotalAmount = async ({user, model, days = 30}) => {
       }
     },
   ]).exec();
+}
+module.exports = {
+  getTotalAmount,
+  getItemsQuantity,
+  getBusiness,
+  getItemsValue
 }

@@ -1,4 +1,4 @@
-import Joi from 'joi';
+const Joi = require('joi');
 // business validation schema
 const businessSchema = Joi.object({
   name: Joi.string()
@@ -14,4 +14,4 @@ const businessSchema = Joi.object({
     .required()
 });
 
-export default businessSchema;
+module.exports =  businessSchema;

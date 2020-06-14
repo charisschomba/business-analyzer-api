@@ -1,5 +1,5 @@
-import mongoose, {Schema} from 'mongoose';
-
+const  mongoose  = require('mongoose');
+const Schema = mongoose.Schema;
 const billSchema = new Schema({
   id: {
     type: String,
@@ -54,4 +54,4 @@ const billSchema = new Schema({
 
 })
 
-export default mongoose.model('Bill', billSchema);
+module.exports = mongoose.model('Bill', billSchema);

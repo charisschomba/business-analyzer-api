@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import userSchema, {loginSchema} from "../utils/validations/auth";
-import errorParser from "../utils/handleValidationErrors";
-import User from "../models/User";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+const { Router } = require('express');
+const {loginSchema, userSchema} = require("../utils/validations/auth");
+const errorParser = require("../utils/handleValidationErrors");
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const router = Router();
 // handles user registration
@@ -67,5 +67,5 @@ router.post('/signin', async (req, res, next) => {
   })
 });
 
-export default router;
+module.exports = router;
 

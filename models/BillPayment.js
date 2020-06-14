@@ -1,4 +1,5 @@
-import mongoose, {Schema} from 'mongoose';
+const  mongoose  = require('mongoose');
+const Schema = mongoose.Schema;
 
 const billPaymentSchema = new Schema({
   id: {
@@ -50,4 +51,4 @@ const billPaymentSchema = new Schema({
 
 })
 
-export default mongoose.model('billPayment', billPaymentSchema);
+module.exports = mongoose.model('billPayment', billPaymentSchema);

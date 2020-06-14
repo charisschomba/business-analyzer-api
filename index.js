@@ -1,18 +1,19 @@
-import express from 'express';
-import morgan from 'morgan';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import fileupload from 'express-fileupload'
+const express = require('express');
+const morgan =  require('morgan');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const fileupload = require('express-fileupload');
 
-import routes from './routes';
-import dbConnection from './utils/db';
+const routes = require('./routes');
+const dbConnection = require('./utils/db');
 
 dotenv.config();
 
 // db connection
 dbConnection();
 // express app initialization
-export const app = express();
+const app = express();
+module.exports = app;
 // app middlewares
 app.use(morgan('tiny'));
 app.use(express.json());

@@ -1,5 +1,5 @@
-import parseCsv from "../utils/parseCsv";
-import { getBusiness} from '../controllers'
+const parseCsv = require("../utils/parseCsv");
+const { getBusiness } = require('../controllers');
 
 // Parses uploaded csv file
 const processUpload = async (req, res, next) => {
@@ -36,4 +36,4 @@ const processUpload = async (req, res, next) => {
     json({message: 'Something went wrong'})
   }
 };
-export default processUpload;
+module.exports = processUpload;

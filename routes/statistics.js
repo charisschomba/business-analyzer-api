@@ -1,11 +1,10 @@
-import {Router} from "express";
-
-import requireLogin from "../middlewares/requireLoggin";
-import {getItemsValue, getItemsQuantity, getTotalAmount} from '../controllers'
-import Order from "../models/Order";
-import OrderPayment from "../models/OrderPayment";
-import BillPayment from "../models/BillPayment";
-import Bill from "../models/Bill";
+const {Router} = require("express");
+const requireLogin = require("../middlewares/requireLoggin");
+const {getItemsValue, getItemsQuantity, getTotalAmount} = require('../controllers');
+const Order = require("../models/Order");
+const OrderPayment = require("../models/OrderPayment");
+const BillPayment = require("../models/BillPayment");
+const Bill = require("../models/Bill");
 
 const router = Router();
 // processes top items produced in terms of value
@@ -40,4 +39,4 @@ router.get('/outgoing-amount', requireLogin, async (req, res) => {
   return res.status(200).json({business: totalBill._id, totalOutgoingAmount});
 })
 
-export default router;
+module.exports = router;

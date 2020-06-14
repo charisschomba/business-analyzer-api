@@ -8,4 +8,4 @@ const validatorErrorHandler = (error) => {
     })
 }
 
-export default validatorErrorHandler;
+module.exports = validatorErrorHandler;

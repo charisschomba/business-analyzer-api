@@ -1,6 +1,5 @@
-import jwt from 'jsonwebtoken';
-
-import User from '../models/User';
+const jwt = require( 'jsonwebtoken');
+const User = require( '../models/User');
 // Checks if the user is logged in
 const requireLogin = async (req, res, next) => {
     const {authorization} = req.headers;
@@ -25,4 +24,4 @@ const requireLogin = async (req, res, next) => {
 
 };
 
-export default requireLogin;
+module.exports = requireLogin;

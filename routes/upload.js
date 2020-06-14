@@ -1,7 +1,7 @@
-import {Router} from "express";
+const {Router} = require("express");
 
-import requireLogin from "../middlewares/requireLoggin";
-import processUpload from "../middlewares/processUpload";
+const requireLogin = require("../middlewares/requireLoggin");
+const processUpload = require("../middlewares/processUpload");
 
 const router = Router();
 //handles csv upload requests
@@ -11,4 +11,4 @@ router.post('/upload', requireLogin, processUpload, async (req, res) => {
   json({message: 'file uploaded to successfully'})
 });
 
-export default router;
+module.exports = router;

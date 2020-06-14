@@ -1,4 +1,4 @@
-import moment from 'moment';
+const moment = require('moment');
 // handles creation of db collections
 const createDocument = (row, business, user) => {
   const [transactionType, id, status, transactionDate, dueDate, customer, item, quantity, amount, transactionAmount ] = row;
@@ -19,4 +19,4 @@ const createDocument = (row, business, user) => {
 
 }
 
-export default createDocument;
+module.exports = createDocument;

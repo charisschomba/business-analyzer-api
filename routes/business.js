@@ -1,8 +1,8 @@
-import businessSchema from "../utils/validations/business";
-import errorParser from "../utils/handleValidationErrors";
-import requireLogin from "../middlewares/requireLoggin";
-import Business from "../models/Business";
-import {Router} from "express";
+const businessSchema = require("../utils/validations/business");
+const errorParser = require("../utils/handleValidationErrors");
+const requireLogin = require("../middlewares/requireLoggin");
+const Business = require("../models/Business");
+const {Router} = require("express");
 
 const router = Router();
 // handles creation of new business
@@ -29,4 +29,4 @@ router.post('/business', requireLogin, async(req, res) => {
   return res.status(201).json({message: 'business created successfully'})
 });
 
-export default router;
+module.exports = router;

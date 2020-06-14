@@ -1,4 +1,5 @@
-import mongoose, {Schema} from 'mongoose';
+const  mongoose  = require('mongoose');
+const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
   id: {
@@ -54,4 +55,4 @@ const orderSchema = new Schema({
 
 })
 
-export default mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('Order', orderSchema);

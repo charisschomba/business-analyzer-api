@@ -1,4 +1,4 @@
-import Joi from 'joi';
+const Joi = require('joi');
 
 // user validation schema
 const userSchema = Joi.object({
@@ -18,7 +18,7 @@ const userSchema = Joi.object({
     .required()
 });
 
-export const loginSchema = Joi.object({
+const loginSchema = Joi.object({
     password: Joi.string()
     .min(6)
     .required(),
@@ -27,4 +27,7 @@ export const loginSchema = Joi.object({
     .required()
 })
 
-export default userSchema;
+module.exports = {
+    userSchema,
+    loginSchema
+};

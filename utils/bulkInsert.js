@@ -1,7 +1,7 @@
-import Order from "../models/Order";
-import Bill from "../models/Bill";
-import BillPayment from "../models/BillPayment";
-import OrderPayment from "../models/OrderPayment";
+const Order = require("../models/Order");
+const Bill = require("../models/Bill");
+const BillPayment = require("../models/BillPayment");
+const OrderPayment = require("../models/OrderPayment");
 
 // inserts to a specific table  depending on transaction type
 const insertToTable = (type, mongoDocument) => {
@@ -31,4 +31,4 @@ const insertDocuments = (documents) => {
   })
 }
 
-export default insertDocuments;
+module.exports =  insertDocuments;
