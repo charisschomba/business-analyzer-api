@@ -1,36 +1,42 @@
 import {Router} from "express";
-import moment from 'moment';
 
-import Business from '../models/Business';
 import requireLogin from "../middlewares/requireLoggin";
-import Order from '../models/Order';
+import {getItemsValue, getItemsQuantity, getTotalAmount} from '../controllers'
+import Order from "../models/Order";
+import OrderPayment from "../models/OrderPayment";
+import BillPayment from "../models/BillPayment";
+import Bill from "../models/Bill";
 
 const router = Router();
 
 router.get('/value', requireLogin,  async (req, res) => {
-
-  const  business = await Business.findOne({user : req.user._id})
-
-  const startDate = moment().add({ days: -30 });
-
-  console.log(startDate.toLocaleString());
-
-  const data = await Order.aggregate([
-    { $match: { business: business._id,
-      } },
-    { $group: { _id: '$item', value: { $sum: { $multiply: ['$quantity', '$amount'] } } } },
-    { $sort: { value: -1 } }
-  ]).exec();
-  res.json({ data, business: business, user: req.user._id, date: startDate.toLocaleString() });
+  const { days } = req.query;
+  const data =  await getItemsValue({user: req.user._id, days});
+  return res.status(200).json({ data, days });
 })
 
-router.get('/quantity', async (req, res) => {
-  const data = await Order.aggregate([
-    { $match: {} },
-    { $group: { _id: '$item', value: { $sum: `$quantity` } } },
-    { $sort: { value: -1 } }
-  ]).exec();
-  res.json({ data });
+router.get('/quantity', requireLogin, async (req, res) => {
+  const { days } = req.query;
+  const  data = await getItemsQuantity({user: req.user._id, days});
+  return res.status(200).json({ data });
+})
+
+router.get('/incoming-amount', requireLogin, async (req, res) => {
+  const { days } = req.query;
+  const  [totalOrder] = await getTotalAmount({user: req.user._id, model: Order, days});
+  const  [totalOrderPayments] = await getTotalAmount({user: req.user._id, model: OrderPayment, days});
+  const totalIncomingAmount = (totalOrder ? totalOrder.totalTransactionAmount : 0) -
+    (totalOrderPayments ? totalOrderPayments.totalTransactionAmount: 0);
+  return res.status(200).json({business: totalOrder._id, totalIncomingAmount});
+})
+
+router.get('/outgoing-amount', requireLogin, async (req, res) => {
+  const { days } = req.query;
+  const  [totalBill] = await getTotalAmount({user: req.user._id, model: Bill, days});
+  const  [totalBillPayments] = await getTotalAmount({user: req.user._id, model: BillPayment, days});
+  const totalOutgoingAmount = (totalBill ? totalBill.totalTransactionAmount: 0) -
+    (totalBillPayments ? totalBillPayments.totalTransactionAmount : 0);
+  return res.status(200).json({business: totalBill._id, totalOutgoingAmount});
 })
 
 export default router;
