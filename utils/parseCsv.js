@@ -1,23 +1,20 @@
 const fs =  require("fs");
 const parse =  require("csv-parse");
-const createDocument =  require("./createDocument");
-const insertDocuments =   require("./bulkInsert");
 
 // Reads csv file and parses it
-const parseCsv = (path, user, business) => {
+const parseCsv = async (req, res, next) => {
   const documents = [];
-  fs.createReadStream(path)
+  const csvRows = []
+  fs.createReadStream(req.filePath)
     .pipe(parse({delimiter: ':'}))
     .on('data', (csvRow) => {
       const formatedRow = csvRow[0].split(',');
-      // creating mongo documents
-      const mongoDocument = createDocument(formatedRow, business, user);
-      documents.push(mongoDocument)
+      csvRows.push(formatedRow)
     })
     .on('end',function() {
-      // remove header row
-      documents.splice(0, 1);
-      insertDocuments(documents)
+      req.csvRows = csvRows
+      next();
+      return csvRows;
     });
 };
 module.exports = parseCsv;
