@@ -54,7 +54,9 @@ const getItemsQuantity = async ({user, days = 30}) => {
  * @param days
  */
 const getTotalAmount = async ({user, model, days = 30}) => {
+  // console.log(user)
   const business = await getBusiness({user});
+  // console.log(business)
   const startDate = moment().subtract(days, 'days');
   return  model.aggregate([
     { $match: {

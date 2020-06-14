@@ -1,8 +1,8 @@
+const {Router} = require("express");
 const businessSchema = require("../utils/validations/business");
 const errorParser = require("../utils/handleValidationErrors");
 const requireLogin = require("../middlewares/requireLoggin");
 const Business = require("../models/Business");
-const {Router} = require("express");
 
 const router = Router();
 // handles creation of new business

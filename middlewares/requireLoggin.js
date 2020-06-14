@@ -18,10 +18,13 @@ const requireLogin = async (req, res, next) => {
         const user = await User.findById({_id: payload.id}, {password: 0, __v: 0})
         if(user) {
             req.user = user;
+            next();
+        } else {
+            return res.status(401).json({
+                error: 'you must be logged in'
+            })
         }
-        next();
     });
-
 };
 
 module.exports = requireLogin;
