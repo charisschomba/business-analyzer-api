@@ -11,6 +11,8 @@ const businessSchema = Joi.object({
   address: Joi.string()
     .required(),
   countriesOfOperations: Joi.string()
+    .required(),
+  annualSales: Joi.string()
     .required()
 });
 
