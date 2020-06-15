@@ -1,7 +1,7 @@
-const createDocument =  require("../../utils/createDocument");
-const {getBusiness} = require("../../controllers")
-const insertDocuments =   require("../../utils/bulkInsert");
-const header = require('../rowHeader');
+const createDocument =  require("../utils/createDocument");
+const {getBusiness} = require("../controllers")
+const insertDocuments =   require("../utils/bulkInsert");
+const header = require('../utils/rowHeader');
 const moment = require('moment');
 
 const validateHeader = (csvHeaderRow) => {

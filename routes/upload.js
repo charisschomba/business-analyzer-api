@@ -2,8 +2,8 @@ const {Router} = require("express");
 const requireLogin = require("../middlewares/requireLoggin");
 const processUpload = require("../middlewares/processUpload");
 const checkBusiness = require("../middlewares/checkUserBusiness")
-const parseCsv = require("../utils/parseCsv");
-const {validateCsvData} = require('../utils/validations/validateCsvFile');
+const parseCsv = require("../middlewares/parseCsv");
+const {validateCsvData} = require('../middlewares/validateCsvFile');
 
 const router = Router();
 //handles csv upload requests
