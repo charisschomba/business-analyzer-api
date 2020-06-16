@@ -10,7 +10,7 @@ const businessSchema = Joi.object({
     .required(),
   address: Joi.string()
     .required(),
-  countriesOfOperations: Joi.string()
+  countriesOfOperations: Joi.array()
     .required(),
   annualSales: Joi.string()
     .required()

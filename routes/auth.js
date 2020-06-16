@@ -29,7 +29,9 @@ router.post('/signup', async(req, res) => {
   bcrypt.hash(password, 12, async(err, hash) => {
     const user = new User({username, email, fullname, password: hash})
     await user.save();
-    return res.status(201).json({message: 'user created successfully'})
+    const userExists = await User.findOne({email})
+    const token = jwt.sign({id: userExists._id}, process.env.JWT_SECRET);
+    return res.status(201).json({message: 'user created successfully', token: token})
   })
 });
 

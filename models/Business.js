@@ -23,10 +23,13 @@ const businessSchema = new Schema({
     required: true
   },
   countriesOfOperations: {
-    type: [String],
+    type: [],
     required: true
   },
   businessAbbreviation: {
+    type: String
+  },
+  accountingSoftware: {
     type: String
   },
   user: {
