@@ -26,7 +26,8 @@ const getItemsValue = async ({user, days = 30}) => {
         }
       },
       {$group: {_id: '$item', value: {$sum: {$multiply: ['$quantity', '$amount']}}}},
-      {$sort: {value: -1}}
+      {$sort: {value: -1}},
+      {$limit: 5}
     ]).exec();
 }
 /**
@@ -45,6 +46,10 @@ const getItemsQuantity = async ({user, days = 30}) => {
       }},
     { $group: { _id: '$item', quantity: { $sum: `$quantity` } } },
     { $sort: { quantity: -1 } }
+    ,
+    {
+      $limit:  5
+    }
   ]).exec();
 }
 /**
@@ -67,7 +72,7 @@ const getTotalAmount = async ({user, model, days = 30}) => {
       _id: `${business.name}`,
        totalTransactionAmount: { $sum: `$transactionAmount` }
       },
-    },
+    }
   ]).exec();
 }
 

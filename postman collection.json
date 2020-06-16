@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "7f7f6132-25ea-4874-a197-60690287dc03",
+		"name": "Offline Business Analyzer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"charissa\",\n    \"email\": \"charissa@gmail.com\",\n    \"password\": \"charissa\",\n    \"fullname\": \"chariss chomba\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c126a5ab-adda-40c9-addd-a5aae582aa82",
+						"exec": [
+							"var res = JSON.parse(responseBody)",
+							"pm.environment.set(\"token\", \"Bearer \" + res.user.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"charissa@gmail.com\",\n    \"password\": \"charissa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/signin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBusinss",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"charissa\",\n    \"address\": \"Nairobi, Kenya\",\n    \"country\": \"Kenya\",\n    \"entity\": \"Retailer\",\n    \"countriesOfOperations\": \"[Kenya]\",\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/business",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"business"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadCsv",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "csv",
+							"type": "file",
+							"src": "/home/chariss/Downloads/ID.pdf",
+							"disabled": true
+						},
+						{
+							"key": "csv",
+							"type": "file",
+							"src": "/home/chariss/Downloads/data.csv"
+						}
+					],
+					"options": {
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"upload"
+					],
+					"query": [
+						{
+							"key": "csv",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTopItems - value",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/value",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"value"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTopitems - Quantity",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/quantity",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"quantity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "incomingAmount",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/incoming-amount",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"incoming-amount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "outgoingAmount",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/outgoing-amount?days=100 ",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"outgoing-amount"
+					],
+					"query": [
+						{
+							"key": "days",
+							"value": "100 "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "allStatistics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/all-statistics",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"all-statistics"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
