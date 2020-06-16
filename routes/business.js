@@ -15,18 +15,6 @@ router.post('/business', requireLogin, async(req, res) => {
     return res.status(401).json({errors: resErrors});
   }
   const businessExists = await Business.findOne({name});
-  const userBusinessRegistered = await Business.findOne({user: req.user._id});
-
-  if(userBusinessRegistered){
-    return res.status(409).json({
-      errors: {
-        message: 'You have registered your business already',
-        context: {
-          key: 'name'
-        }
-      }
-    })
-  }
 
   if(businessExists){
     return res.status(409).json({
