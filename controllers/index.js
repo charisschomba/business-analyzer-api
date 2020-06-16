@@ -44,7 +44,7 @@ const getItemsQuantity = async ({user, days = 30}) => {
         transactionDate: {$gte: new Date(startDate)}
       }},
     { $group: { _id: '$item', quantity: { $sum: `$quantity` } } },
-    { $sort: { value: -1 } }
+    { $sort: { quantity: -1 } }
   ]).exec();
 }
 /**
@@ -66,10 +66,11 @@ const getTotalAmount = async ({user, model, days = 30}) => {
     { $group: {
       _id: `${business.name}`,
        totalTransactionAmount: { $sum: `$transactionAmount` }
-      }
+      },
     },
   ]).exec();
 }
+
 module.exports = {
   getTotalAmount,
   getItemsQuantity,

@@ -31,7 +31,7 @@ router.post('/signup', async(req, res) => {
     await user.save();
     const userExists = await User.findOne({email})
     const token = jwt.sign({id: userExists._id}, process.env.JWT_SECRET);
-    return res.status(201).json({message: 'user created successfully', token: token})
+    return res.status(201).json({message: 'user created successfully', token: token, user: username, email})
   })
 });
 

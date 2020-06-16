@@ -1,5 +1,6 @@
 const {Router} = require("express");
 const requireLogin = require("../middlewares/requireLoggin");
+const allStatistics = require("../middlewares/calculateAllStatistics");
 const {getItemsValue, getItemsQuantity, getTotalAmount} = require('../controllers');
 const Order = require("../models/Order");
 const OrderPayment = require("../models/OrderPayment");
@@ -41,5 +42,6 @@ router.get('/outgoing-amount', requireLogin, checkBusiness, async (req, res) => 
     (totalBillPayments ? totalBillPayments.totalTransactionAmount : 0);
   return res.status(200).json({business: businessName, totalOutgoingAmount});
 })
+router.get('/all-statistics', requireLogin, checkBusiness, allStatistics)
 
 module.exports = router;
